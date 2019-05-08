@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> canvas </title>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+
+        <canvas class="myCanvas">
+            <p>ni de liu lnaq buzhic canvas </p>
+        </canvas>
+        <script>
+            var canvas = document.querySelector(".myCanvas");
+            var width = canvas.width = window.innerWidth;
+            var height = canvas.height = window.innerHeight;
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = 'rgb(0, 0, 0)';
+            ctx.fillRect(0, 0, width, height);
+            // ctx.fillStyle = 'rgb(255, 0, 0)';
+            // ctx.fillRect(50, 50, 100, 150);
+            // ctx.fillStyle = "rgba(255, 0, 255, 1)";
+            // ctx.fillRect(25, 100, 175, 50);
+            // ctx.lineWidth = 5;
+            // ctx.strokeStyle = "rgb(255, 255, 255)";
+            // ctx.strokeRect(25, 25, 175, 200);
+            // // ctx.lineWidth = 10;
+            // ctx.fillStyle = 'rgb(255, 0, 0)';
+            // ctx.beginPath();
+            // ctx.moveTo(50, 50);
+            // // 绘制路径， 
+            // ctx.fill();
+            // //haunt三角形， 
+
+            // ctx.lineTo(150, 50);
+            // var triheight = 50 * Math.tan(degToRad(60));
+            // ctx.lineTo(100, 50+triheight);
+            // ctx.lineTo(50, 50);
+            // ctx.fill();
+            
+            // function degToRad(degrees) {
+            //     return degrees*Math.PI/180;
+            // }
+            // //花园， 
+            // ctx.fillStyle = 'rgb(0, 0, 255)';
+            // ctx.beginPath();
+            // ctx.arc(150, 106, 50, degToRad(0), degToRad(360), true);
+            // ctx.fill();
+            // //花湖， 
+            // ctx.fillStyle = "yellow";
+            // ctx.beginPath();
+            // ctx.arc(200, 106, 50, degToRad(-45), degToRad(45), false);
+            // // ctx.lineTo(200, 106);
+            // ctx.fill();
+            // ctx.strokeStyle = "white";
+            // ctx.lineWidth = 2;
+            // ctx.font = "36px arial";
+            // ctx.strokeText("mujin", 50, 50);
+
+            // ctx.fillStyle = "red";
+            // ctx.font = "48px georgia";
+            // ctx.fillText("mujin", 50, 150);
+
+            // var image = new Image();
+            // image.src = "images/firefox2.png";
+            // image.onload = function() {
+            //     ctx.drawImage(image, 50, 50);
+            // }
+
+            //
+            // ctx.translate(width/2, height/2);
+
+            // function degToRad(degress) {
+            //     return degress * Math.PI / 180;
+            // }
+            // function rand(min, max) {
+            //     return Math.floor(Math.random() * (max-min+1) + (min));
+            // }
+            // var length = 250;
+            // var moveOffset = 20;
+            // for(var i=0; i<length; i++) {
+            //     ctx.fillStyle = 'rgba(' + (255-length) + ', 0, ' + (255-length) + ', 0.9)';
+            //     ctx.beginPath();
+            //     ctx.moveTo(moveOffset, moveOffset);
+            //     ctx.lineTo(moveOffset+length, moveOffset);
+            //     var triheight = length/2 * Math.tan(degToRad(60));
+            //     ctx.lineTo(moveOffset+(length/2), moveOffset+triheight);
+            //     ctx.lineTo(moveOffset, moveOffset);
+            //     ctx.fill();
+
+            //     length--;
+            //     moveOffset += 0.7;
+            //     ctx.rotate(degToRad(5));
+            //     // ctx.fillStyle = 'rgba(' + (255-length) + ', 0, ' + (255-length) + ', 0.9)';
+            //     // ctx.beginPath();
+            //     // ctx.moveTo(moveOffset, moveOffset);
+            //     // ctx.lineTo(moveOffset+length, moveOffset);
+            //     // var triHeight = length/2 * Math.tan(degToRad(60));
+            //     // ctx.lineTo(moveOffset+(length/2), moveOffset+triHeight);
+            //     // ctx.lineTo(moveOffset, moveOffset);
+            //     // ctx.fill();
+
+            //     // length--;
+            //     // moveOffset += 0.7;
+            //     // ctx.rotate(degToRad(5));
+            // }
+
+            ctx.translate(width/2, height/2);
+            var image = new Image();
+            image.src="images/walk-right.png"
+            image.onload = draw;
+            var sprite = 0;
+            var posx = 0;
+            function draw() {
+                ctx.fillRect(-(width/2), -(height/2), width, height);
+                ctx.drawImage(image, (sprite*102), 0, 102, 148, 0+posx, -74, 102, 148);
+
+                if(posx % 13 === 0) {
+                    if(sprite === 5) {
+                        sprite = 0;
+                    }else {
+                        sprite++;
+                    }
+                }
+                if(posx > width/2) {
+                    newStartPos = -((width/2) + 102);
+                    posx = Math.ceil(newStartPos / 13) * 13;
+                    console.log(posx);
+                }else {
+                    posx += 2;
+                }
+                window.requestAnimationFrame(draw);
+            }
+        </script>
+    </body>
+</html>
